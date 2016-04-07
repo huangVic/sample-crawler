@@ -1,2 +1,2 @@
-# sample-crawler
-NodeJS 簡易爬蟲專案
+# NodeJS-Crawler
+* 使用 NodeJS 實作網頁爬蟲*
