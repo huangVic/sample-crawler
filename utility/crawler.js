@@ -1,9 +1,10 @@
 
-var URL_MODEL = require('../models/UrlModel');
-var urlModel = new URL_MODEL();
-var request = require('request');
-var cheerio = require('cheerio');
-var common = require('../utility/common');
+var URL_MODEL = require('../models/UrlModel');    // Model
+var urlModel = new URL_MODEL();                   // new Model instance
+
+var request = require('request');                 // Simplified HTTP client package (supports https)
+var cheerio = require('cheerio');                 // Tiny, fast, and elegant implementation of core jQuery designed specifically for the server
+var common = require('../utility/common');   
 
 
 
@@ -96,7 +97,7 @@ var CRAWLER = function() {
                 }
             }
         }
-
+        
         var process = function() {
             var item = urlList[0];
             urlList.shift();
@@ -201,9 +202,14 @@ var CRAWLER = function() {
                         save();
                     }
                     else if(arrayList.length == 0) {
-                        if (callback) {
-                            callback();
-                        }
+                        
+                        var update_sql = "update link_manage set status = 100 , update_date = Now() where id=" + id;
+                        urlModel.update(update_sql, function() {
+                            if (callback) {
+                                callback();
+                            }
+                        }) 
+                        
                     }
 
                 });

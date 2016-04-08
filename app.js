@@ -104,15 +104,17 @@ var Crawler = new CW();
 
 var crawlerName = "crawler-1";
 var flag = 0;
+
 async.forever(function(callback) {
+    
     console.info(" << forever start >>");
     setTimeout(function() {
         console.info(" forever...");
         console.info(" flag: " + flag);
         flag++;
-        //if (flag > 5) {
-        //    callback({ message: "stop..." });
-        //} else {
+        if (flag > 5) {
+            callback({ message: "stop..." });
+        } else {
             Crawler.init(crawlerName, function(result) {
                 if (result && result.error) {
                    callback({ message: result.error });
@@ -120,7 +122,7 @@ async.forever(function(callback) {
                 }
                 callback(null);
             });
-        //}
+        }
     }, 10000);
 
 }, function(err) {
